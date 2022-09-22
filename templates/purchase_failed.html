@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<script>
+function returning() {
+    setTimeout(() => {openWindow();}, 500);
+}
+function openWindow(){
+    var x = getImage();
+    window.open("{{url}}/"+x,"_self");
+}
+function getImage() {
+    var page = window.location.href;
+    var id = page.split('/')[4];
+    return id
+}
+</script>
+
+<body onload="returning()">
+<h1> That image has already been purchased. </h1>
+</body>
+</html>

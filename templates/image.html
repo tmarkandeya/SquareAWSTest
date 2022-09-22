@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width", initial-scale="1.0">
+    <title>Tree Image</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <script src="https://sandbox.web.squarecdn.com/v0/square.js"></script>
+</head>
+<img src="{{url_for('static', filename='loading.jpg')}}" height="700" id="myImage" name="myImage"/>
+<body onload="load()">
+    <div id="wrapper">
+        <div id="card"></div>
+        <p> </p>
+        <button id="pay" onclick="buyImage()" class="button">
+            Buy This Tree
+        </button>
+        <p> </p>
+        <button onclick="myFunction()" class="button">
+            Random Image
+        </button>
+        <p> </p>
+        <button onclick="goToCart()" class="button">
+            Cart
+        </button>
+    </div>
+<script>
+    (async()=>{
+        const payments = Square.payments(
+            'sandbox-sq0idb-PECc9aWKdTgWPYKsscgd3w',
+            'LZFZEA1GP4WC0'
+            );
+        const cardOptions = {
+            style: {
+                input: {
+                    backgroundColor: 'white'
+                },
+            }
+        };
+        try {
+            const card = await payments.card(cardOptions);
+            await card.attack('#card')
+            const payButton = document.getElementById('pay');
+            payButton.addEventListener('click', async ()=>{
+                const result = await card.tokenize();
+                alert(JSON.stringify(result, null, 2));
+               })
+        } catch (e) {
+            console.error(e)
+        }
+    })()
+</script>
+
+<script type="text/javascript">
+function load(){
+    var test = String(getImage());
+    document.getElementById('myImage').src="/static/" + test + ".jpg";
+}
+
+function getImage() {
+    var page = window.location.href;
+    var id = page.split('/')[3];
+    return id
+}
+</script>
+<script>
+function myFunction() {
+    let x = Math.floor((Math.random() * 10) + 1);
+    window.open("{{url}}/"+x,"_self")
+}
+</script>
+<script>
+function buyImage() {
+    var x = getImage();
+    window.open("{{url}}" + "/buy/"+x,"_self")
+}
+</script>
+<script>
+function goToCart() {
+    window.open("{{url}}"+ "/cart","_self")
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body>
+<script>
+function myFunction(){
+    let x = Math.floor((Math.random() * 10) + 1);
+    window.open("{{url}}/"+x,"_self")
+}
+</script>
+<div class="container">
+    <h1 class="center">
+        Simple Tree Images, with Square API Integration
+    </h1>
+    <p> </p>
+    <button onclick="myFunction()" class="button">
+        Random Image
+    </button>
+</div>
+</body>
+</html>

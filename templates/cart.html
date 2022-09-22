@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+
+<script>
+function goToHome() {
+    window.open("{{url}}","_self")
+}
+</script>
+
+<body>
+<div class="container">
+    <h1 class="center">
+        Your Cart
+    </h1>
+    <p> </p>
+    <ul id="user_cart">
+        {% for filename in cart %}
+            <li><img src='{{url_for("static", filename=filename + ".jpg")}}' height=150 /></li><li><p> </p></li>
+        {% endfor %}
+        <li><p> </p></li>
+    </ul>
+    <p> </p>
+    <button onclick="goToHome()" class="button">
+        Home
+    </button>
+
+</div>
+</body>
+</html>
